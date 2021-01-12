@@ -2,6 +2,8 @@ import sys
 import requests
 import time
 
+CONNECT_TIMEOUT = 5
+
 def str_response(r):
     #if 'Set-Cookie' in r.headers:
     #    r_cookies = " Cookies:[" + r.headers['Set-Cookie'] + "]"
@@ -40,15 +42,19 @@ else:
 # main cycle
 c = 0
 while nolimit or c < limit:
-    r = requests.get(url)
-    indent = ""
-    if r.history:
-        for h in r.history:
-            print(f"{indent}{str_response(h)}")
-            if indent == "":
-                indent = " `-> "
-            else:
-                indent = "     " + indent
-    print(f"{indent}{str_response(r)}")
+    try:
+        r = requests.get(url, timeout=CONNECT_TIMEOUT)
+    except requests.exceptions.ConnectTimeout:
+        print(f"Connection timeout ({CONNECT_TIMEOUT} sec)")
+    else:
+        indent = ""
+        if r.history:
+            for h in r.history:
+                print(f"{indent}{str_response(h)}")
+                if indent == "":
+                    indent = " `-> "
+                else:
+                    indent = "     " + indent
+        print(f"{indent}{str_response(r)}")
     time.sleep(sleeptime)
     c = c + 1
