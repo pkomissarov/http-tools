@@ -2,7 +2,7 @@ import sys
 import requests
 import time
 
-CONNECT_TIMEOUT = 5
+CONNECT_TIMEOUT = 4
 
 def str_response(r):
     #if 'Set-Cookie' in r.headers:
