@@ -3,7 +3,7 @@
 Usage: ```httpreq.py <url> [<sleeptime>] [<limit>]```
 
 Usage example: ```httpreq.py https://google.com 0.1 1000```  
-That means - send 1000 GET requests to https://google.com, sleeping 0.1 sec beetween requests  
+That means - send 1000 GET requests to https://google.com, sleeping 0.1 seconds beetween requests  
 Default values: sleeptime = 1 sec, limit = 0 (unlimited)
 
 Example of requests, with responses returning page with 200 code:
